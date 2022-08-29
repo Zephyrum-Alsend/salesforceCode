@@ -1,0 +1,37 @@
+<template>
+    <div class="demo-only slds-size_1-of-1">
+        <div class="demo-only slds-size_1-of-2 slds-float_left">
+            <lightning-input type="toggle" label="Active User Table" name="input1" checked={isUserActive} onchange={displayActive}></lightning-input>
+        </div>
+        <div class="demo-only slds-size_1-of-2 slds-float_left">
+            <lightning-input type="toggle" label="InActive User Table" name="input2" checked={isUserInactive} onchange={displayInactive}></lightning-input>
+        </div>
+    </div>
+
+    <div>
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+            <thead>
+                <tr class="slds-text-title_caps">
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Name">Name</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Email">Email</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="IsActive">IsActive</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={users} for:item="user">
+                    <tr key={user.Id}>
+                        <th>{user.Name}</th>
+                        <th>{user.Email}</th>
+                        <th><lightning-input type="toggle" label="" name={user.Name} id={user.Id} checked={user.IsActive} onchange={toggleUserActivity}></lightning-input></th>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </div>
+</template>

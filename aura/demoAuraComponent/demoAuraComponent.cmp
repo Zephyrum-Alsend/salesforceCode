@@ -1,0 +1,13 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller="demoAura2">
+	
+    <!-- Aura handler== Constructor in Apex -->
+    <aura:handler name="init" value="{!this}" action="{!c.doinit}" />
+    
+    <!-- Aura attribute == Variable/Data holder in Aura -->
+    <aura:attribute name="lstOfAccounts" type="LIST" />
+    
+    <aura:iteration items="{!v.lstOfAccounts}" var="item">
+        <p>{!item.Name}</p><br/>
+    </aura:iteration>
+    
+</aura:component>

@@ -1,0 +1,98 @@
+<template>
+    
+    <!-- Accounts' datatable starts here -->
+    <div style="height: 3000px">
+    
+        <h2>Selected Rows: {selectedRowsCount}</h2>
+    
+        <!-- Delete/Clone/Contacts buttons here -->
+        <div if:true={showButtons}>
+            <lightning-button variant="destructive" label="Delete" title="Primary action" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+            <lightning-button variant="brand" label="Clone" title="Secondary action" onclick={handleClick2} class="slds-m-left_x-small"></lightning-button>
+            <lightning-button variant="brand" label="Transfer Contacts" title="Secondary action" onclick={openModal} class="slds-m-left_x-small"></lightning-button>
+        </div>
+        
+        <!-- Datatable of Accounts with selectable rows -->
+        <lightning-datatable
+            data={accounts}
+            columns={columns}
+            key-field="id"
+            onrowselection={updateSelectedText}>
+        </lightning-datatable>
+    
+    </div>
+
+    <!-- Modal containing Contacts datatable starts here -->
+    <template if:true={isModalOpen}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+
+                <!-- Modal header -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Contact Transfer</h2>
+                </header>
+
+                <!-- Contacts datatable / Modal body -->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning-datatable
+                        data={contacts}
+                        columns={contColumns}
+                        key-field="id"
+                        onrowselection={updateSelectedText2}>
+                    </lightning-datatable>
+                </div>
+
+                <!-- Close/Transfer / Modal footer -->
+                <footer class="slds-modal__footer">
+                    <lightning-button variant="neutral" label="Close" title="Primary action" onclick={closeModal} class="slds-m-left_x-small"></lightning-button>
+                    <lightning-button variant="brand" label="Transfer Contacts" title="Secondary action" onclick={editContact} class="slds-m-left_x-small"></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <template if:true={isEditContact}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-02" aria-modal="true" aria-describedby="modal-content-id-2" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+
+                <!-- Modal header -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={editContact}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Contact Transfer</h2>
+                </header>
+
+                <!-- Transfer Contact / Modal body -->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                    <lightning-record-edit-form object-api-name={childObjectApiName}>
+                        <label for="fieldid">{fieldLabel}</label>
+                        <lightning-input-field id="fieldid" required={required} variant="label-hidden" field-name={targetFieldApiName}
+                            value={value} onchange={handleChange} disabled={disabled} >
+                        </lightning-input-field>
+                    </lightning-record-edit-form>
+                </div>
+
+                <!-- Close/Submit / Modal footer -->
+                <footer class="slds-modal__footer">
+                    <lightning-button variant="neutral" label="Close" title="Primary action" onclick={editContact} class="slds-m-left_x-small"></lightning-button>
+                    <lightning-button variant="brand" label="Transfer Contacts" title="Secondary action" onclick={submitEditContact} class="slds-m-left_x-small"></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+</template>

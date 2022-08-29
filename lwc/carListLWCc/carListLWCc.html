@@ -1,0 +1,23 @@
+<template>
+    <c-search-bar-l-w-c onsearch={handleCarSearch}></c-search-bar-l-w-c>
+    <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+        <thead>
+            <tr class="slds-text-title_caps">
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Name">Name</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="ID">ID</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <template for:each={cars} for:item="car">
+                <tr key={car.Id}>
+                    <th>{car.Car_Name__c}</th>
+                    <th>{car.Name}</th>
+                </tr>
+            </template>
+        </tbody>
+    </table>
+</template>

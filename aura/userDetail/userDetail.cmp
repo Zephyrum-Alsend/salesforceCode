@@ -1,0 +1,43 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" controller='userActiveToggleController'>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="userList" type="User[]"/>
+    <div class="demo-only slds-size_1-of-1">
+        <div class="demo-only slds-size_1-of-2 slds-float_left">
+            <lightning:input type="toggle" label="Active User Table" name="input1" aura:id= "activeUsercheckbox" onchange="{!c.getCheckboxStatus}"/>
+        </div>
+        <div class="demo-only slds-size_1-of-2 slds-float_left">
+            <lightning:input type="toggle" label="InActive User Table" name="input2" aura:id= "inActiveUsercheckbox" onchange="{!c.getCheckboxStatus}"/>
+        </div>
+    </div>
+    <div >
+        <table  class="slds-table slds-table_bordered slds-table_cell-buffer">
+            <thead>
+                <tr class="slds-text-title_caps">
+                    <th scope="col">
+                        <div>Name</div>
+                    </th>
+                    <th scope="col">
+                        <div>Email</div>
+                    </th>
+                    <th scope="col">
+                        <div>IsActive</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.userList}" var="PerItem">
+                    <tr>
+                        <th>{!PerItem.Name}</th>
+                        <th>{!PerItem.Email}</th>
+                        <aura:if isTrue="{! PerItem.IsActive == true}">
+                            <th><lightning:input type="toggle" label="" name="{!PerItem.Id}" aura:id= "checkboxTrue" checked="true" onchange="{!c.setUserStatus}"/></th>
+                            <aura:set attribute="else">
+                                <th><lightning:input type="toggle" label="" name="{!PerItem.Id}" aura:id= "checkboxFalse"  onchange="{!c.setUserStatus}"/></th>
+                            </aura:set>
+                        </aura:if>
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+    </div>  -->
+</aura:component>

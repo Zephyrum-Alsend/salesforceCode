@@ -1,0 +1,6 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="strText" type="string"/>
+    <div>
+        <lightning:input value="{!v.strText}" type="text" label="Person Name" onkeyup="{!c.searchKeyChange}"/>
+    </div>
+</aura:component>
